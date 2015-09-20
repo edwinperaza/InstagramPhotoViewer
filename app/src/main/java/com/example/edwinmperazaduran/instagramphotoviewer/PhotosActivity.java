@@ -68,18 +68,27 @@ public class PhotosActivity extends AppCompatActivity {
                         JSONObject photoJSON = photosJSON.getJSONObject(i);
                         InstagramPhoto photo = new InstagramPhoto();
                         photo.setUsername(photoJSON.getJSONObject("user").getString("username"));
-                        String cap = photoJSON.getJSONObject("caption").getString("text");
-                        if (cap == null) {
-                            photo.setCaption(" ");
-                        }else {
-                            photo.setCaption(cap);
+                        //extract the caption only if the caption is not null
+                        if (photoJSON.optJSONObject("caption") != null) {
+                            photo.setCaption(photoJSON.getJSONObject("caption").getString("text"));
+                            photo.setCreatedTime(photoJSON.getJSONObject("caption").getLong("created_time"));
                         }
-
                         photo.setImageUrl(photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url"));
                         photo.setImageHeight(photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height"));
                         photo.setLikesCount(photoJSON.getJSONObject("likes").getInt("count"));
-                        photo.setCreatedTime(photoJSON.getJSONObject("caption").getLong("created_time"));
                         photo.setProfileUrl(photoJSON.getJSONObject("user").getString("profile_picture"));
+                        photo.setCommentCount(photoJSON.getJSONObject("comments").getInt("count"));
+                        //extract comments only if is not null
+                        if (photoJSON.getJSONObject("comments") != null){
+                            JSONArray commentsJSON = photoJSON.getJSONObject("comments").getJSONArray("data");
+                            for (int x=0; x < commentsJSON.length() && commentsJSON != null; x++ ){
+                                InstagramComment comment = new InstagramComment();
+                                JSONObject data = commentsJSON.getJSONObject(x);
+                                comment.setText(data.getString("text"));
+                                comment.setCommentUserName(data.getJSONObject("from").getString("username"));
+                                photo.comments.add(comment);
+                            }
+                        }
                         photos.add(photo);
                         swipeContainer.setRefreshing(false);
                     }

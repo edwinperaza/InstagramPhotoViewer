@@ -1,5 +1,7 @@
 package com.example.edwinmperazaduran.instagramphotoviewer;
 
+import java.util.ArrayList;
+
 /**
  * Created by edwinmperazaduran on 18/9/15.
  */
@@ -9,10 +11,31 @@ public class InstagramPhoto {
     public String imageUrl;
     public int imageHeight;
     public long createdTime;
+    public int likesCount;
+    public int commentCount;
+    public ArrayList<InstagramComment> comments;
 
-    public String getProfileUrl() {
-        return profileUrl;
+    public int getCommentCount() {
+        return commentCount;
     }
+
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public ArrayList<InstagramComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<InstagramComment> comments) {
+        this.comments = comments;
+    }
+
+    public InstagramPhoto (){
+        comments = new ArrayList<>();
+    }
+
+    public String getProfileUrl() { return profileUrl; }
 
     public void setProfileUrl(String profileUrl) {
         this.profileUrl = profileUrl;
@@ -69,6 +92,6 @@ public class InstagramPhoto {
     }
 
 
-    public int likesCount;
+
 
 }
