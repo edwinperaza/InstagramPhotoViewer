@@ -36,6 +36,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         TextView tvCaptionUsername = (TextView) convertView.findViewById(R.id.tvCaptionUsername);
         TextView tvCaption = (TextView) convertView.findViewById(R.id.tvCaption);
         TextView tvComments = (TextView) convertView.findViewById(R.id.tvComments);
+        TextView tvMoreComments = (TextView) convertView.findViewById(R.id.tvMoreComments);
         ImageView ivPhoto = (ImageView) convertView.findViewById(R.id.ivPhoto);
         ImageView ivPhotoProfile = (ImageView) convertView.findViewById(R.id.ivPhotoProfile);
 
@@ -48,14 +49,30 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         tvNumlikes.setText(String.valueOf(photo.getLikesCount()));
         tvCaptionUsername.setText(photo.getUsername());
         tvCaption.setText(photo.getCaption());
-        //Insert Comments
-        String htmlText = "";
-        for(int i=0; i < 2 ;i++) {
-            InstagramComment comment = (InstagramComment) photo.comments.get(i);
-            htmlText += "<b><font color=\"#287AA9\">" + comment.commentUserName + "</font></b> "
-                     + comment.text + "<br>";
+        //Show "More Comments" if CommentCount > 2
+        if (photo.getCommentCount() > 2){
+            String htmlTextCountComments = "<b>View all " + photo.getCommentCount() +  " comments </b>";
+            tvMoreComments.setText(Html.fromHtml(htmlTextCountComments));
         }
-        tvComments.setText(Html.fromHtml(htmlText));
+        //If commentCount 0 or 1 hide tvMoreComments
+        //Otherwise show last 2 comments
+        switch (photo.getCommentCount()){
+            case 0:
+            case 1:
+                tvMoreComments.setVisibility(View.GONE);
+                break;
+            default: {
+                //Insert Comments
+                String htmlTextComments = "";
+                for (int i = 0; i < photo.getComments().size() && i < 2; i++) {
+                    InstagramComment comment = (InstagramComment) photo.comments.get(i);
+                    htmlTextComments += "<b><font color=\"#287AA9\">" + comment.commentUserName
+                            + "</font></b> " + comment.text + "<br>";
+                }
+                tvComments.setText(Html.fromHtml(htmlTextComments));
+                break;
+            }
+        }
         //Insert de image using picasso
         ivPhoto.setImageResource(0);
         Picasso.with(getContext()).load(photo.getImageUrl()).into(ivPhoto);
