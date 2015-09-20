@@ -1,6 +1,7 @@
 package com.example.edwinmperazaduran.instagramphotoviewer;
 
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,15 +22,31 @@ public class PhotosActivity extends AppCompatActivity {
     public static final String CLIENT_ID = "8a2e83656fbc481dacb8dc576b6e49f7";
     private ArrayList<InstagramPhoto> photos;
     private InstagramPhotosAdapter aPhotos;
+    private SwipeRefreshLayout swipeContainer;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photos);
+        ListView lvPhotos = (ListView) findViewById(R.id.lvPhotos);
         photos = new ArrayList<>();
         aPhotos = new InstagramPhotosAdapter(this, photos);
-        ListView lvPhotos = (ListView) findViewById(R.id.lvPhotos);
         lvPhotos.setAdapter(aPhotos);
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchPopularPhotos();
+            }
+        });
         fetchPopularPhotos();
+        // Configure the refreshing colors
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
 
     public void fetchPopularPhotos(){
@@ -45,17 +62,26 @@ public class PhotosActivity extends AppCompatActivity {
                 JSONArray photosJSON = null;
                 try {
                     photosJSON = response.getJSONArray("data");
+                    // Remember to CLEAR OUT old items before appending in the new ones
+                    aPhotos.clear();
                     for (int i=0; i < photosJSON.length(); i++){
                         JSONObject photoJSON = photosJSON.getJSONObject(i);
                         InstagramPhoto photo = new InstagramPhoto();
                         photo.setUsername(photoJSON.getJSONObject("user").getString("username"));
-                        photo.setCaption(photoJSON.getJSONObject("caption").getString("text"));
+                        String cap = photoJSON.getJSONObject("caption").getString("text");
+                        if (cap == null) {
+                            photo.setCaption(" ");
+                        }else {
+                            photo.setCaption(cap);
+                        }
+
                         photo.setImageUrl(photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url"));
                         photo.setImageHeight(photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height"));
                         photo.setLikesCount(photoJSON.getJSONObject("likes").getInt("count"));
                         photo.setCreatedTime(photoJSON.getJSONObject("caption").getLong("created_time"));
                         photo.setProfileUrl(photoJSON.getJSONObject("user").getString("profile_picture"));
                         photos.add(photo);
+                        swipeContainer.setRefreshing(false);
                     }
                 } catch (JSONException e){
                     e.printStackTrace();
