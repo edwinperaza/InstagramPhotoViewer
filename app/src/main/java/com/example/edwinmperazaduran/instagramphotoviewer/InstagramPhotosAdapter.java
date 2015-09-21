@@ -46,7 +46,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
 
         tvUsername.setText(photo.getUsername());
         tvTimeStamp.setText(strTimestamp);
-        tvNumlikes.setText(String.valueOf(photo.getLikesCount()));
+        tvNumlikes.setText("\u2764 " + String.valueOf(photo.getLikesCount()));
         tvCaptionUsername.setText(photo.getUsername());
         tvCaption.setText(photo.getCaption());
         //Show "More Comments" if CommentCount > 2
@@ -75,7 +75,8 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         }
         //Insert de image using picasso
         ivPhoto.setImageResource(0);
-        Picasso.with(getContext()).load(photo.getImageUrl()).into(ivPhoto);
+        Picasso.with(getContext()).load(photo.getImageUrl()).placeholder(R.drawable.placeholder).into(ivPhoto);
+        //Insert Profile Picture using picasso
         ivPhotoProfile.setImageResource(0);
         Picasso.with(getContext()).load(photo.getProfileUrl()).transform(new CircleTransform())
                 .into(ivPhotoProfile);
