@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AbsListView;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -29,7 +30,7 @@ public class PhotosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photos);
-        ListView lvPhotos = (ListView) findViewById(R.id.lvPhotos);
+        final ListView lvPhotos = (ListView) findViewById(R.id.lvPhotos);
         photos = new ArrayList<>();
         aPhotos = new InstagramPhotosAdapter(this, photos);
         lvPhotos.setAdapter(aPhotos);
@@ -38,7 +39,9 @@ public class PhotosActivity extends AppCompatActivity {
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                //getSupportActionBar().hide();
                 fetchPopularPhotos();
+
             }
         });
         fetchPopularPhotos();
@@ -47,6 +50,27 @@ public class PhotosActivity extends AppCompatActivity {
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+        //Scroll down: Hide Action Bar
+        //Scroll up until first item: Show Action Bar
+        lvPhotos.setOnScrollListener(new AbsListView.OnScrollListener() {
+            int mLastFirstVisibleItem = 0;
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (view.getId() == lvPhotos.getId()) {
+                    final int currentFirstVisibleItem = lvPhotos.getFirstVisiblePosition();
+                    if (currentFirstVisibleItem > mLastFirstVisibleItem) {
+                        getSupportActionBar().hide();
+                    } else if (currentFirstVisibleItem < mLastFirstVisibleItem) {
+                        getSupportActionBar().show();
+                    }
+                    mLastFirstVisibleItem = currentFirstVisibleItem;
+                }
+            }
+        });
     }
 
     public void fetchPopularPhotos(){
@@ -97,7 +121,6 @@ public class PhotosActivity extends AppCompatActivity {
                 }
                 aPhotos.notifyDataSetChanged();
             }
-
             @Override
             public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
 
@@ -118,12 +141,10 @@ public class PhotosActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

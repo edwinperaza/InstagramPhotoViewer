@@ -33,7 +33,8 @@
         android:layout_toRightOf="@+id/ivPhotoProfile"
         android:layout_toLeftOf="@+id/tvTimeStamp"
         android:layout_toStartOf="@+id/tvTimeStamp"
-        android:gravity="center_vertical" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/tvTimeStamp"
@@ -45,7 +46,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignBottom="@+id/tvUsername"
-        android:gravity="center_vertical"
+        android:layout_centerVertical="true"
         android:paddingLeft="16dp" />
 
     <ImageView
