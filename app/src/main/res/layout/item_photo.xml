@@ -65,20 +65,66 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivHeartIcon"
+        android:layout_below="@+id/ivPhoto"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/heart_icon"
+        android:paddingLeft="15dp"/>
+
+    <ImageView
+        android:id="@+id/ivCommentIcon"
+        android:src="@drawable/comment_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ivHeartIcon"
+        android:layout_alignBottom="@+id/ivHeartIcon"
+        android:layout_toRightOf="@+id/ivHeartIcon"
+        android:layout_toEndOf="@+id/ivHeartIcon"
+        android:layout_below="@+id/ivPhoto"
+        android:paddingLeft="15dp"/>
+
+    <ImageView
+        android:id="@+id/ivMessageIcon"
+        android:src="@drawable/message_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/ivCommentIcon"
+        android:layout_alignBottom="@+id/ivCommentIcon"
+        android:layout_toRightOf="@+id/ivCommentIcon"
+        android:layout_toEndOf="@+id/ivCommentIcon"
+        android:layout_below="@+id/ivPhoto"
+        android:paddingLeft="15dp"/>
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ivReportIcon"
+        android:layout_alignBottom="@+id/ivMessageIcon"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/report_icon"
+        android:paddingRight="16dp"/>
+
+
+
     <TextView
         android:id="@+id/tvNumlikes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/num_likes"
-        android:layout_below="@+id/ivPhoto"
+        android:layout_below="@+id/ivHeartIcon"
         android:layout_alignParentLeft="true"
         android:paddingLeft="16dp"
         android:gravity="center_vertical"
         android:textSize="15sp"
         android:textColor="#084B8A"
         android:textStyle="bold"
-        android:paddingRight="2dp"
- />
+        android:paddingRight="2dp" />
 
     <TextView
         android:id="@+id/tvLikes"
@@ -148,6 +194,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:paddingLeft="16dp"/>
+
 
 
 </RelativeLayout>

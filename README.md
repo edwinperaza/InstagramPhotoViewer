@@ -18,6 +18,7 @@ For each photo displayed user can see the following details
  * [ ] Bonus: Allow user to view all comments for an image within a separate activity or dialog fragment
  * [ ] Bonus: Allow video posts to be played in full-screen using the VideoView
  * [x] Optional: Hide Action Bar when scrolling down
+ * [x] Optional: Improving Performance with the ViewHolder Pattern
 
 ## Acknowledgements
 
