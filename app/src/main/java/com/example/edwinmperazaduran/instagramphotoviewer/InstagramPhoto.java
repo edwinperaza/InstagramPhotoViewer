@@ -1,10 +1,6 @@
 package com.example.edwinmperazaduran.instagramphotoviewer;
 
 import java.util.ArrayList;
-
-/**
- * Created by edwinmperazaduran on 18/9/15.
- */
 public class InstagramPhoto {
     public String username;
     public String caption;
@@ -90,8 +86,4 @@ public class InstagramPhoto {
     public void setLikesCount(int likesCount) {
         this.likesCount = likesCount;
     }
-
-
-
-
 }

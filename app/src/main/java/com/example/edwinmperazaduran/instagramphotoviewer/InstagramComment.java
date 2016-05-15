@@ -1,8 +1,5 @@
 package com.example.edwinmperazaduran.instagramphotoviewer;
 
-/**
- * Created by edwinmperazaduran on 19/9/15.
- */
 public class InstagramComment {
 
     public String text;
