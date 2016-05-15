@@ -39,7 +39,6 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
 
         if (convertView == null){
             viewHolder = new ViewHolder();
-            //create a new view
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo,
                     parent, false);
             viewHolder.tvUsername  = (TextView) convertView.findViewById(R.id.tvUsername);
@@ -65,20 +64,16 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
         viewHolder.tvNumlikes.setText("\u2764 " + String.valueOf(photo.getLikesCount()));
         viewHolder.tvCaptionUsername.setText(photo.getUsername());
         viewHolder.tvCaption.setText(photo.getCaption());
-        //Show "More Comments" if CommentCount > 2
         if (photo.getCommentCount() > 2){
             String htmlTextCountComments = "View all " + photo.getCommentCount() +  " comments";
             viewHolder.tvMoreComments.setText(Html.fromHtml(htmlTextCountComments));
         }
-        //If commentCount 0 or 1 hide tvMoreComments
-        //Otherwise show last 2 comments
         switch (photo.getCommentCount()){
             case 0:
             case 1:
                 viewHolder.tvMoreComments.setVisibility(View.GONE);
                 break;
             default: {
-                //Insert Comments
                 String htmlTextComments = "";
                 for (int i = 0; i < photo.getComments().size() && i < 2; i++) {
                     InstagramComment comment = (InstagramComment) photo.comments.get(i);
@@ -89,10 +84,8 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto> {
                 break;
             }
         }
-        //Insert de image using picasso
         viewHolder.ivPhoto.setImageResource(0);
         Picasso.with(getContext()).load(photo.getImageUrl()).placeholder(R.drawable.placeholder).into(viewHolder.ivPhoto);
-        //Insert Profile Picture using picasso
         viewHolder.ivPhotoProfile.setImageResource(0);
         Picasso.with(getContext()).load(photo.getProfileUrl()).transform(new CircleTransform())
                 .into(viewHolder.ivPhotoProfile);

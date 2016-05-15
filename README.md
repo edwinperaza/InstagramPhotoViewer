@@ -1,36 +1,37 @@
-# Week 1 Project: Instagram Photo Viewer
+# Instagram Popular Photo Client
+
+> What's Instagram Popular Photo Client?
 
 This is an Android demo application for displaying the popular photos from Instagram.
 
-Time spent: 8 hours spent in total
+> What can you do?
 
-Completed user stories:
+For each photo displayed user can see the following details:
 
-For each photo displayed user can see the following details
- * [x] Required: Graphic, Caption, Username.
- * [x] Optional: Relative timestamp, Like count, User profile image.
- * [x] Advanced: Add pull-to-refresh for popular stream with SwipeRefreshLayout
- * [x] Advanced: Show latest comment for each photo (bonus: show last 2 comments)
- * [x] Advanced: Display each photo with the same style and proportions as the real Instagram (see screens below)
- * [ ] Advanced: Display each user profile image using a RoundedImageView
- * [x] Advanced: Display a nice default placeholder graphic for each image during loading (read more about Picasso)
- * [x] Advanced: Improve the user interface through styling and coloring
- * [ ] Bonus: Allow user to view all comments for an image within a separate activity or dialog fragment
- * [ ] Bonus: Allow video posts to be played in full-screen using the VideoView
- * [x] Optional: Hide Action Bar when scrolling down
- * [x] Optional: Improving Performance with the ViewHolder Pattern
+ * Graphic, Caption, Username.
+ * Relative timestamp, Like count, User profile image.
+ * Latest comment for each photo.
+ * Add pull-to-refresh for popular stream with SwipeRefreshLayout.
+ 
+> What are the additional features?
 
-## Acknowledgements
-
-This project uses the [Instagram API](https://instagram.com/developer/).
-
-It also uses many other open source libraries such as:
-
- * [Android Async HTTP](https://github.com/loopj/android-async-http)
- * [Picasso](http://square.github.io/picasso/)
+ * Using ViewHolder to improve performance
+ * Hide Action Bar when scrolling down
+ * Displaying a nice default placeholder graphic for each image during loading (read more about Picasso)
+ * Displaying each user profile image using a RoundedImageView
+ * Displaying each photo with the same style and proportions as the real Instagram
 
 ## Walkthrough of all user stories:
 
 ![Video Walkthrough](PopularPhotos.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
+
+## License
+ * [Apache Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
+ 
+## Acknowledgements
+ 
+  * [Instagram API](https://instagram.com/developer/).
+  * [Android Async HTTP](https://github.com/loopj/android-async-http)
+  * [Picasso](http://square.github.io/picasso/)
